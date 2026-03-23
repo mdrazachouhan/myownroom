@@ -9,6 +9,13 @@ import {
   Check,
   MessageCircle,
 } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
 
 import Header from "@/components/Header";
@@ -67,13 +74,37 @@ console.log(property);
           </Link>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {/* IMAGE */}
+            {/* IMAGE CAROUSEL */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <img
-                src={property.image}
-                alt={property.title}
-                className="rounded-2xl w-full"
-              />
+              {property.images && property.images.length > 0 ? (
+                <Carousel className="w-full">
+                  <CarouselContent>
+                    {property.images.map((img, index) => (
+                      <CarouselItem key={index}>
+                        <div className="aspect-video relative overflow-hidden rounded-2xl">
+                          <img
+                            src={img}
+                            alt={`${property.title} - ${index + 1}`}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  {property.images.length > 1 && (
+                    <>
+                      <CarouselPrevious className="left-4" />
+                      <CarouselNext className="right-4" />
+                    </>
+                  )}
+                </Carousel>
+              ) : (
+                <img
+                  src={property.image}
+                  alt={property.title}
+                  className="rounded-2xl w-full aspect-video object-cover"
+                />
+              )}
             </motion.div>
 
             {/* DETAILS */}

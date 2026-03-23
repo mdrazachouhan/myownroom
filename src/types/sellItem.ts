@@ -7,6 +7,8 @@ export interface SellItem {
   city: string;
   location: string;
   image: string;
+  images?: string[];
+
   description: string;
   postedDate: string;
 }

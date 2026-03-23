@@ -9,6 +9,8 @@ export interface Property {
   city: string;
 
   image: string;
+  images?: string[];
+
   description: string;
 
   type: "single" | "double" | "triple" | "quad";

@@ -12,6 +12,13 @@ import {
   Sofa,
   Package,
 } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -106,15 +113,42 @@ Please share more details.`;
           </Link>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {/* IMAGE */}
+            {/* IMAGE CAROUSEL */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <div className="relative rounded-xl overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover"
-                />
-                <Badge className="absolute top-4 left-4 flex items-center gap-1 capitalize">
+              <div className="relative rounded-xl overflow-hidden group">
+                {item.images && item.images.length > 0 ? (
+                  <Carousel className="w-full">
+                    <CarouselContent>
+                      {item.images.map((img: string, index: number) => (
+                        <CarouselItem key={index}>
+                          <div className="aspect-[4/3] relative overflow-hidden">
+                            <img
+                              src={img}
+                              alt={`${item.title} - ${index + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    {item.images.length > 1 && (
+                      <>
+                        <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </>
+                    )}
+                  </Carousel>
+                ) : (
+                  <div className="aspect-[4/3] relative">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                
+                <Badge className="absolute top-4 left-4 z-10 flex items-center gap-1 capitalize shadow-lg">
                   <CategoryIcon className="w-4 h-4" />
                   {item.category}
                 </Badge>

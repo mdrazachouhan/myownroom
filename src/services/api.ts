@@ -1,5 +1,6 @@
 import { HeroData } from "@/types/hero";
 import { Property } from "@/types/property";
+import { RoomType } from "@/types/roomType";
 import { SellItem } from "@/types/sellItem";
 
 
@@ -74,6 +75,7 @@ export const getPropertyBySlug = async (
     city: data.city,
 
     image: data.image,
+    images: data.images ?? (data.image ? [data.image] : []),
     description: data.description,
 
     type: data.type,
@@ -128,5 +130,13 @@ export const getSellItemBySlug = async (
   );
 
   if (!res.ok) return null;
-  return res.json();
+  const data = await res.json();
+  if (!data) return null;
+
+  return {
+    ...data,
+    id: String(data.id),
+    price: Number(data.price),
+    images: data.images ?? (data.image ? [data.image] : []),
+  };
 };
