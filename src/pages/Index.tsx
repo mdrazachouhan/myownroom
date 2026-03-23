@@ -21,9 +21,13 @@ import HeroSlider from "@/components/HeroSlider";
 import WhyChooseSlider from "@/components/WhyChooseSlider";
 import GoogleRatingsSection from "@/components/GoogleRatingsSection";
 import { StatsSection } from "@/components/StatsSection";
+import { getHeroData } from "@/services/api";
+import { HeroData } from "@/types/hero";
 
 const Index = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
+   /* hero slider data */
+const [heroSlides, setHeroSlides] = useState([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,7 +36,20 @@ const Index = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  /* hero slider API */
+  useEffect(() => {
+    loadHeroSlider();
+  }, []);
 
+  const loadHeroSlider = async () => {
+    try {
+      const data = await getHeroData();
+        console.log("Hero API Data:", data);
+      setHeroSlides(data);
+    } catch (error) {
+      console.error("Hero slider API error:", error);
+    }
+  };
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -103,9 +120,9 @@ const Index = () => {
       <Header />
 
       {/* Hero Slider */}
-      <HeroSlider />
+      <HeroSlider slides={heroSlides} />
 
-      {/* Stats Section */}
+       {/* Stats Section */}
 
       {/* Find Your Ideal Space Section */}
       <section className="py-20 md:py-28 bg-background relative">
@@ -195,10 +212,8 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-      {/* Why Choose StayNest Slider */}
+       {/* Why Choose StayNest Slider */}
       <WhyChooseSlider />
-      
       {/* Stats Section */}
       <StatsSection />
 

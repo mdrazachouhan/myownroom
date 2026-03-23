@@ -19,7 +19,7 @@ const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    const whatsappMessage = `Hello StayNest!
+    const whatsappMessage = `Hello My Own Room Services!
 
 *Name:* ${formData.name}
 *Email:* ${formData.email}
@@ -51,11 +51,6 @@ ${formData.message}`;
       icon: Mail,
       title: "Email",
       content: "myownroomservices@gmail.com"
-    },
-    {
-      icon: Clock,
-      title: "Working Hours",
-      content: "Mon - Sat: 9:00 AM - 8:00 PM\nSunday: 10:00 AM - 6:00 PM"
     }
   ];
 
@@ -116,7 +111,6 @@ ${formData.message}`;
                       placeholder="your@email.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      required
                     />
                   </div>
                   <div>
@@ -183,7 +177,7 @@ ${formData.message}`;
               {/* Map Placeholder */}
               <div className="mt-8 rounded-xl overflow-hidden border border-border">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.1897544847!2d81.6296!3d21.2514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a28ddf6f0c7d5e7%3A0x8c7f0b0b0b0b0b0b!2sShanti%20Nagar%2C%20Raipur%2C%20Chhattisgarh!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                  src="https://www.google.com/maps?q=21.2469855,81.6551428&z=17&hl=en&output=embed"
                   width="100%"
                   height="250"
                   style={{ border: 0 }}

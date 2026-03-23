@@ -119,8 +119,8 @@ const About = () => {
                 className="rounded-2xl shadow-xl"
               />
               <div className="absolute -bottom-6 -left-6 bg-primary text-primary-foreground p-6 rounded-2xl shadow-lg">
-                <div className="text-3xl font-display font-bold">5+</div>
-                <div className="text-sm opacity-90">Years of Trust</div>
+                <div className="text-3xl font-display font-bold">1947</div>
+                <div className="text-sm opacity-90">Our Beginning</div>
               </div>
             </motion.div>
           </div>

@@ -45,13 +45,15 @@ const ItemDetail = () => {
       .finally(() => setLoading(false));
   }, [slug]);
 
-  const formatPrice = (price: number) => {
-    if (price >= 100000) {
-      return `₹${(price / 100000).toFixed(1)} Lakh`;
-    }
-    return `₹${price.toLocaleString()}`;
-  };
-
+  // const formatPrice = (price: number) => {
+  //   if (price >= 100000) {
+  //     return `₹${(price / 100000).toFixed(1)} Lakh`;
+  //   }
+  //   return `₹${price.toLocaleString()}`;
+  // };
+const formatPrice = (price: number) => {
+  return `₹${price.toLocaleString("en-IN")}`;
+};
   /* ================= WHATSAPP HANDLER ================= */
 
   const handleWhatsApp = () => {

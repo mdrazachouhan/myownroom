@@ -16,6 +16,7 @@ import { SellItem } from "@/types/sellItem";
 
 //   return res.json();
 // };
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const handle = async <T>(res: Response): Promise<T> => {
@@ -23,8 +24,8 @@ const handle = async <T>(res: Response): Promise<T> => {
   return res.json();
 };
 
-/* HOME */
-export const getHeroData = async (): Promise<HeroData> =>
+/* HERO SLIDER API */
+export const getHeroData = async (): Promise<HeroData[]> =>
   handle(await fetch(`${API_BASE_URL}/home_hero.php`));
 
 /* PG */

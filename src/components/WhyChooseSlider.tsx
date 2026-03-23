@@ -89,7 +89,7 @@ const WhyChooseSlider = () => {
             Why Us
           </motion.span>
           <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-4">
-            Why Choose StayNest?
+            Why Choose Us?
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             We go above and beyond to ensure your stay is comfortable, safe, and memorable.
