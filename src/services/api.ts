@@ -25,6 +25,21 @@ const handle = async <T>(res: Response): Promise<T> => {
   return res.json();
 };
 
+/* Parse images — handles JSON string, array, or fallback to [image] */
+const parseImages = (images: unknown, fallbackImage?: string): string[] => {
+  if (Array.isArray(images)) return images;
+  if (typeof images === "string") {
+    try {
+      const parsed = JSON.parse(images);
+      if (Array.isArray(parsed)) return parsed;
+    } catch {
+      // not valid JSON, treat as single url
+      return [images];
+    }
+  }
+  return fallbackImage ? [fallbackImage] : [];
+};
+
 /* HERO SLIDER API */
 export const getHeroData = async (): Promise<HeroData[]> =>
   handle(await fetch(`${API_BASE_URL}/home_hero.php`));
@@ -75,7 +90,7 @@ export const getPropertyBySlug = async (
     city: data.city,
 
     image: data.image,
-    images: data.images ?? (data.image ? [data.image] : []),
+    images: parseImages(data.images, data.image),
     description: data.description,
 
     type: data.type,
@@ -137,6 +152,7 @@ export const getSellItemBySlug = async (
     ...data,
     id: String(data.id),
     price: Number(data.price),
-    images: data.images ?? (data.image ? [data.image] : []),
+    images: parseImages(data.images, data.image),
+
   };
 };
