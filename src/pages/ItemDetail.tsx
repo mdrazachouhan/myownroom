@@ -18,7 +18,9 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  CarouselDots,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -117,7 +119,11 @@ Please share more details.`;
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               <div className="relative rounded-xl overflow-hidden group">
                 {item.images && item.images.length > 0 ? (
-                  <Carousel className="w-full">
+                  <Carousel 
+                    className="w-full"
+                    plugins={[Autoplay({ delay: 3000 })]}
+                    opts={{ loop: true }}
+                  >
                     <CarouselContent>
                       {item.images.map((img: string, index: number) => (
                         <CarouselItem key={index}>
@@ -133,8 +139,9 @@ Please share more details.`;
                     </CarouselContent>
                     {item.images.length > 1 && (
                       <>
-                        <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <CarouselPrevious className="hidden md:flex left-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <CarouselNext className="hidden md:flex right-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <CarouselDots />
                       </>
                     )}
                   </Carousel>

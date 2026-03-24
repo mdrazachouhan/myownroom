@@ -15,7 +15,9 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  CarouselDots,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 import { useEffect, useState } from "react";
 
 import Header from "@/components/Header";
@@ -77,7 +79,11 @@ console.log(property);
             {/* IMAGE CAROUSEL */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               {property.images && property.images.length > 0 ? (
-                <Carousel className="w-full">
+                <Carousel 
+                  className="w-full"
+                  plugins={[Autoplay({ delay: 3000 })]}
+                  opts={{ loop: true }}
+                >
                   <CarouselContent>
                     {property.images.map((img, index) => (
                       <CarouselItem key={index}>
@@ -93,8 +99,9 @@ console.log(property);
                   </CarouselContent>
                   {property.images.length > 1 && (
                     <>
-                      <CarouselPrevious className="left-4" />
-                      <CarouselNext className="right-4" />
+                      <CarouselPrevious className="hidden md:flex left-4" />
+                      <CarouselNext className="hidden md:flex right-4" />
+                      <CarouselDots />
                     </>
                   )}
                 </Carousel>

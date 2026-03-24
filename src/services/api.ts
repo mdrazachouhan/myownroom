@@ -63,7 +63,14 @@ export const getPGProperties = async (type: string): Promise<Property[]> => {
   const res = await fetch(
     `${API_BASE_URL}/pg/properties.php?type=${type}`
   );
-  return res.json();
+  const data = await res.json();
+
+  return data.map((p: any) => ({
+    ...p,
+    id: String(p.id),
+    images: parseImages(p.gallery || p.images, p.image),
+    amenities: p.features || [],
+  }));
 };
  /* ✅ PROPERTY DETAIL BY SLUG */
 export const getPropertyBySlug = async (
@@ -90,7 +97,7 @@ export const getPropertyBySlug = async (
     city: data.city,
 
     image: data.image,
-    images: parseImages(data.images, data.image),
+    images: parseImages(data.gallery || data.images, data.image),
     description: data.description,
 
     type: data.type,
@@ -103,10 +110,17 @@ export const getPropertyBySlug = async (
   };
 };
 /* HOSTEL PROPERTIES */
-export const getHostelProperties = async () => {
-  return handle(
-    await fetch(`${API_BASE_URL}/hostel/properties.php`)
-  );
+export const getHostelProperties = async (): Promise<Property[]> => {
+  const res = await fetch(`${API_BASE_URL}/hostel/properties.php`);
+  if (!res.ok) throw new Error("Failed to load hostels");
+  const data = await res.json();
+
+  return data.map((p: any) => ({
+    ...p,
+    id: String(p.id),
+    images: parseImages(p.gallery || p.images, p.image),
+    amenities: p.features || [],
+  }));
 };
 
 /* HOSTEL DETAIL */
@@ -121,7 +135,14 @@ export const getHostelBySlug = async (slug: string) => {
 export const getDormitoryProperties = async (): Promise<Property[]> => {
   const res = await fetch(`${API_BASE_URL}/dormitory/properties.php`);
   if (!res.ok) throw new Error("Failed to load dormitories");
-  return res.json();
+  const data = await res.json();
+
+  return data.map((p: any) => ({
+    ...p,
+    id: String(p.id),
+    images: parseImages(p.gallery || p.images, p.image),
+    amenities: p.features || [],
+  }));
 };
 
 export const getDormitoryPropertyDetails = async (slug: string) => {
@@ -133,8 +154,17 @@ export const getDormitoryPropertyDetails = async (slug: string) => {
 };
 
 /* SELL ITEMS */
-export const getSellItems = async (): Promise<SellItem[]> =>
-  handle(await fetch(`${API_BASE_URL}/sell/items.php`));
+export const getSellItems = async (): Promise<SellItem[]> => {
+  const res = await fetch(`${API_BASE_URL}/sell/items.php`);
+  if (!res.ok) throw new Error("Failed to load items");
+  const data = await res.json();
+
+  return data.map((item: any) => ({
+    ...item,
+    id: String(item.id),
+    images: parseImages(item.gallery || item.images, item.image),
+  }));
+};
 
 /* SELL ITEM DETAIL */
 export const getSellItemBySlug = async (
@@ -152,7 +182,6 @@ export const getSellItemBySlug = async (
     ...data,
     id: String(data.id),
     price: Number(data.price),
-    images: parseImages(data.images, data.image),
-
+    images: parseImages(data.gallery || data.images, data.image),
   };
 };
